@@ -282,7 +282,7 @@ class WebviewManager {
                         //适配7.0
                         if (Build.VERSION.SDK_INT > M) {
                             if (photoFile != null) {
-                                photoURI = FileProvider.getUriForFile(activity, "com.id.cashyuk.fileprovider", photoFile);
+                                photoURI = FileProvider.getUriForFile(activity, getPackageName(activity)+".fileprovider", photoFile);
                                 takePictureIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                             }
@@ -492,6 +492,18 @@ class WebviewManager {
         }
     }
 
+    public  synchronized String getPackageName(Context context) {
+        try {
+            PackageManager packageManager = context.getPackageManager();
+            PackageInfo packageInfo = packageManager.getPackageInfo(
+                    context.getPackageName(), 0);
+            return packageInfo.packageName;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+    
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.CHINA).format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
