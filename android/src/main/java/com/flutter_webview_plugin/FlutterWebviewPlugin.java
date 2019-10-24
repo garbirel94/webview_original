@@ -30,8 +30,8 @@ public class FlutterWebviewPlugin implements MethodCallHandler, PluginRegistry.A
     private static final String CHANNEL_NAME = "flutter_webview_plugin";
 
     public static void registerWith(PluginRegistry.Registrar registrar) {
-        registrar.activity().getWindow().setFormat(PixelFormat.TRANSLUCENT);
-        registrar.activity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
+//         registrar.activity().getWindow().setFormat(PixelFormat.TRANSLUCENT);
+//         registrar.activity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
         channel = new MethodChannel(registrar.messenger(), CHANNEL_NAME);
         final FlutterWebviewPlugin instance = new FlutterWebviewPlugin(registrar.activity());
         registrar.addActivityResultListener(instance);
