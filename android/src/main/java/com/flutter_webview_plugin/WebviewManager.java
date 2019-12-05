@@ -229,7 +229,7 @@ class WebviewManager {
                 }
                 mUploadMessage = uploadMsg;
 
-                if("iamge/*".equals(acceptType)){
+                if("image/*".equals(acceptType)){
                     Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
                     if (takePictureIntent.resolveActivity(activity.getPackageManager()) != null) {

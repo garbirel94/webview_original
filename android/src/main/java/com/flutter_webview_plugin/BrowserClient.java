@@ -1,6 +1,7 @@
 package com.flutter_webview_plugin;
 
 import android.annotation.TargetApi;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.net.http.SslError;
 import android.os.Build;
@@ -9,6 +10,8 @@ import android.webkit.WebResourceRequest;
 import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import androidx.appcompat.app.AlertDialog;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,8 +54,23 @@ public class BrowserClient extends WebViewClient {
     }
     
     @Override
-    public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-        handler.proceed(); // 接受所有证书
+    public void onReceivedSslError(WebView view,final  SslErrorHandler handler, SslError error) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(view.getContext());
+        builder.setMessage("Otentikasi SSL gagal. Apakah Anda ingin melanjutkan akses?？");
+        builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.proceed();//接受所有证书
+            }
+        });
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                handler.cancel();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     @Override
